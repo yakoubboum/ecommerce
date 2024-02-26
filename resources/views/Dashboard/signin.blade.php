@@ -29,10 +29,12 @@
 												<h5 class="font-weight-semibold mb-4">Please sign in to continue.</h5>
 												<form action="#">
 													<div class="form-group">
-														<label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
+														<label>Email</label> <input class="form-control" placeholder="Enter your email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
 													</div>
 													<div class="form-group">
-														<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password">
+														<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password" 
+														name="password"
+														required autocomplete="current-password">
 													</div><button class="btn btn-main-primary btn-block">Sign In</button>
 													<div class="row row-xs">
 														<div class="col-sm-6">
