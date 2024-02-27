@@ -3,11 +3,7 @@
     <!-- Sidemenu-respoansive-tabs css -->
     <link href="{{ URL::asset('Dashboard/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css') }}"
         rel="stylesheet">
-    <style>
-        .panel {
-            display: none;
-        }
-    </style>
+    
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -35,15 +31,27 @@
                                         <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Va<span>le</span>x</h1>
                                     </div>
 
+
+
+
                                     <div class="card-sigin">
                                         <div class="main-signup-header">
 
-                                            <h2>Welcome </h2>
+                                            <h2>{{ trans('Dashboard/login_trans.Welcome') }}</h2>
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Who are you ? </label>
                                                 <select class="form-control" id="sectionChooser">
-                                                    <option value="" selected disabled>choose</option>
-                                                    <option value="user">User</option>
+                                                    <option value="" disabled>choose</option>
+                                                    <option value="user" selected>User</option>
                                                     <option value="admin">Admin</option>
 
                                                 </select>
@@ -86,7 +94,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="panel" id="admin">
+                                            <div class="panel" id="admin" style="display: none">
                                                 <h2>An Admin</h2>
                                                 <h5 class="font-weight-semibold mb-4">Please sign in to continue.</h5>
                                                 <form method="POST" action="{{ route('login.admin') }}">
