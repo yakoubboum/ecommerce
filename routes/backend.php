@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\SectionController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -25,14 +24,31 @@ Route::group(
     ],
     function () {
 
+
+        //################ User dashboard ################//
         Route::get('/dashboard/user', function () {
             return view('Dashboard.User.dashboard');
         })->middleware(['auth:web', 'verified'])->name('dashboard.user');
 
 
-        Route::get('/dashboard/admin', function () {
-            return view('Dashboard.Admin.dashboard');
-        })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
+
+        //###############----------###################""//
+
+
+        //################ Admin dashboard ################//
+
+       
+
+        Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'dashboard/admin'],function () {
+
+            Route::get('/', function () {
+                return view('Dashboard.Admin.dashboard');
+            })->name('dashboard.admin');
+
+            Route::resource('/sections',SectionController::class);
+        });
+
+        //###############----------###################""//
 
 
         require __DIR__ . '/auth.php';
