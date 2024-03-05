@@ -7,7 +7,7 @@ return array (
   'Services' => 'Services',
   'Single_service' => 'Single service',
   'ambulance' => 'Ambulance',
-  'doctors' => 'Doctors',
+  'products' => 'products',
   'group_services' => 'Group Services',
   'index' => 'Home',
   'sections' => 'Sections',

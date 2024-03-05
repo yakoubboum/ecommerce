@@ -25,6 +25,12 @@ Route::group(
     function () {
 
 
+        
+        Route::get('/test',[SectionController::class,'test']);
+
+
+
+
         //################ User dashboard ################//
         Route::get('/dashboard/user', function () {
             return view('Dashboard.User.dashboard');

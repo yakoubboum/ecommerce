@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Repository\SectionRepositoryInterface;
+
 use Illuminate\Http\Request;
+use Mcamara\Laravel\Localization\Facades\LaravelLocalization;
 
 class SectionController extends Controller
 {
@@ -20,7 +23,7 @@ class SectionController extends Controller
         return $this->Section->index();
     }
 
-    
+
     public function store(Request $r)
     {
         return $this->Section->store($r);
@@ -34,6 +37,12 @@ class SectionController extends Controller
     public function destroy(Request $request)
     {
         return $this->Section->destroy($request);
+    }
 
+    public function test()
+    {
+        $product = Product::find(1)->first();
+
+        return $product->image;
     }
 }

@@ -7,7 +7,7 @@ return array (
   'Services' => 'الخدمات',
   'Single_service' => 'خدمة مفردة',
   'ambulance' => 'الاسعاف',
-  'doctors' => 'الاطباء',
+  'products' => 'المنتجات',
   'group_services' => 'مجموعة خدمات',
   'index' => 'الرئيسية',
   'sections' => 'الاقسام',
