@@ -3,22 +3,20 @@
 
 namespace App\Repository;
 
-use App\Models\Section;
-use App\Repository\SectionRepositoryInterface;
+use App\Models\Product;
+use App\Repository\ProductRepositoryInterface;
 
 
 
-
-
-
-
-class SectionRepository implements SectionRepositoryInterface
+class ProductRepository implements ProductRepositoryInterface
 {
 
     public function index()
     {
-        $Sections = Section::all();
-        return \view('Dashboard.Sections.index', \compact('Sections'));
+        
+        $data = Product::all();
+        
+        return \view('Dashboard.Products.index', \compact('data'));
     }
 
     public function show($id)
@@ -28,7 +26,9 @@ class SectionRepository implements SectionRepositoryInterface
     public function store($r)
     {
 
-        return $r;
+        Section::create([
+            'name' => $r->name,
+        ]);
         session()->flash('add');
         return back();
     }

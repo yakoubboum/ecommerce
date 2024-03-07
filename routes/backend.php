@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+
 
 
 /*
@@ -52,6 +55,7 @@ Route::group(
             })->name('dashboard.admin');
 
             Route::resource('/sections',SectionController::class);
+            Route::resource('/products',ProductController::class);
         });
 
         //###############----------###################""//

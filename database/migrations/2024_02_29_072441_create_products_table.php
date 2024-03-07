@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('discount')->nullable()->check('discount >= 0 AND discount <= 100');
             $table->decimal('delivery_price', 10, 2)->nullable();
             $table->string('delivery_time')->nullable();
-            
+            $table->boolean('status')->default(1);
             $table->decimal('rating', 4, 2);
             $table->integer('number_of_ratings')->nullable();
             $table->integer('number_of_sales')->nullable();

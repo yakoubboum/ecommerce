@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
             // fields you want to translate
-            $table->string('name');
+            $table->string('name')->unique();
         });
     }
 

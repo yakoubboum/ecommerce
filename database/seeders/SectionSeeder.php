@@ -69,7 +69,7 @@ class SectionSeeder extends Seeder
             // Add more sections with translations here
         ];
 
-        foreach ($sections as $sectionName => $translations) {
+        foreach ($sections as  $translations) {
             $sectionId = DB::table('sections')->insertGetId([
                 'created_at' => now(),
             ]);

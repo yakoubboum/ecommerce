@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Repository\SectionRepositoryInterface;
 
 use Illuminate\Http\Request;
-use Mcamara\Laravel\Localization\Facades\LaravelLocalization;
 
 class SectionController extends Controller
 {
