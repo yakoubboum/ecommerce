@@ -27,6 +27,7 @@ class Product extends Model
         'number_of_sales',
         'quantity',
         'specifications',
+        'status',
     ];
 
     public function image(): MorphOne

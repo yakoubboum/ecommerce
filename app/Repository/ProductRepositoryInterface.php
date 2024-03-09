@@ -12,8 +12,8 @@ interface ProductRepositoryInterface
 
     public function store($r);
 
-    public function update($request);
+    public function update($r);
 
-    public function destroy($request);
+    public function destroy($r);
 
 }

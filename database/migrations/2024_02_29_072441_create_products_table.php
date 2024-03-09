@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('delivery_price', 10, 2)->nullable();
             $table->string('delivery_time')->nullable();
             $table->boolean('status')->default(1);
-            $table->decimal('rating', 4, 2);
+            $table->decimal('rating', 4, 2)->nullable();
             $table->integer('number_of_ratings')->nullable();
             $table->integer('number_of_sales')->nullable();
             $table->integer('quantity')->nullable();

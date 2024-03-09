@@ -22,7 +22,7 @@ return new class extends Migration
 
             // fields you want to translate
             $table->string('name');
-            $table->string('details');
+            $table->string('details',5000)->nullable();
         });
     }
 

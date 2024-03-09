@@ -50,7 +50,7 @@
 @endsection
 @section('content')
     <!-- row -->
-	@if (count($errors) > 0)
+    @if (count($errors) > 0)
         <div class="alert alert-danger">
             <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                 <span aria-hidden="true">&times;</span>
@@ -73,7 +73,6 @@
                     type: "success"
                 });
             }
-
         </script>
     @endif
 
@@ -85,7 +84,6 @@
                     type: "success"
                 });
             }
-
         </script>
     @endif
 
@@ -97,11 +95,10 @@
                     type: "success"
                 });
             }
-
         </script>
     @endif
 
-	
+
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card">
@@ -135,48 +132,46 @@
                             </thead>
                             <tbody>
                                 @forelse ($data as $item)
-                                <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $item['name'] }}</td>
-                                    <td>{{ $item->section->name }}</td>
-                                    <td>{{ $item['price'] }}</td>
-                                    <td>{{ $item['discount'] }}</td>
-                                    <td>{{ $item['delivery_price'] }}</td>
-                                    <td>{{ $item['delivery_time'] }}</td>
-                                    @if ($item['status']==1)
-                                    <td>
-                                        <div class="dot-label bg-success ml-1"></div>
-                                        <div>{{ trans('doctors.Enabled') }}</div>
-                                    </td>
-                                    @else
-                                    <td>
-                                        <div class="dot-label bg-danger ml-1"></div>
-                                        <div>{{trans('doctors.Not_enabled')}}</div>
-                                    </td>
-                                    @endif
+                                    <tr>
+                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $item['name'] }}</td>
+                                        <td>{{ $item->section->name }}</td>
+                                        <td>{{ $item['price'] }}</td>
+                                        <td>{{ $item['discount'] }}</td>
+                                        <td>{{ $item['delivery_price'] }}</td>
+                                        <td>{{ $item['delivery_time'] }}</td>
+                                        @if ($item['status'] == 1)
+                                            <td>
+                                                <div class="dot-label bg-success ml-1"></div>
+                                                <div>{{ trans('doctors.Enabled') }}</div>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <div class="dot-label bg-danger ml-1"></div>
+                                                <div>{{ trans('doctors.Not_enabled') }}</div>
+                                            </td>
+                                        @endif
 
-                                    
-                                    <td>{{ $item['rating'] }}</td>
-                                    <td>{{ $item['number_of_ratings'] }}</td>
-                                    <td>{{ $item['number_of_sales'] }}</td>
-                                    <td>{{ $item['quantity'] }}</td>
-                                    <td>{{ $item['specifications'] }}</td>
-                                    <td>
-                                        <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                            data-toggle="modal" href="#edit"><i
-                                                class="las la-pen"></i></a>
-                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-toggle="modal" href="#delete"><i
-                                                class="las la-trash"></i></a>
-                                    </td>
-                                    @include('Dashboard.Products.edit')
-                                    @include('Dashboard.Products.delete')
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="13">No data found.</td>
-                                </tr>
-                            @endforelse
+
+                                        <td>{{ $item['rating'] }}</td>
+                                        <td>{{ $item['number_of_ratings'] }}</td>
+                                        <td>{{ $item['number_of_sales'] }}</td>
+                                        <td>{{ $item['quantity'] }}</td>
+                                        <td>{{ $item['specifications'] }}</td>
+                                        <td>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                data-toggle="modal" href="#edit"><i class="las la-pen"></i></a>
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-toggle="modal" href="#delete"><i class="las la-trash"></i></a>
+                                        </td>
+                                        @include('Dashboard.Products.edit')
+                                        @include('Dashboard.Products.delete')
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="13">No data found.</td>
+                                    </tr>
+                                @endforelse
 
 
                             </tbody>
@@ -197,6 +192,15 @@
     <!-- main-content closed -->
 @endsection
 @section('js')
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
     <script src="{{ URL::asset('Dashboard/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('Dashboard/plugins/datatable/js/dataTables.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('Dashboard/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
