@@ -5,9 +5,10 @@ namespace App\Repository;
 
 use App\Models\Product;
 use App\Models\Section;
+use App\Repository\ProductRepositoryInterface;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\DB;
-use App\Repository\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Storage;
 // use Illuminate\Support\Str;
 
 
@@ -20,7 +21,10 @@ class ProductRepository implements ProductRepositoryInterface
     public function index()
     {
 
-        $data = Product::all();
+        $data = Product::orderBy('created_at', 'desc')->get();
+
+
+
         $sections = Section::all();
         return \view('Dashboard.Products.index', \compact('data', 'sections'));
     }
@@ -63,7 +67,7 @@ class ProductRepository implements ProductRepositoryInterface
             // Save the product to database
             $product->save();
 
-            $this->verifyAndStoreImage($request,'photo','products','upload_image',$product->id,'App\Models\Product');
+            $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
 
 
             DB::commit();
@@ -75,20 +79,82 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
-    public function update($request)
+    public function update($request, $id)
     {
-        $section = Section::findOrFail($request->id);
-        $section->update([
-            'name' => $request->input('name'),
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'section_id' => 'required|integer|exists:sections,id',
+            'price' => 'required|numeric|min:0.01',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'delivery_price' => 'nullable|numeric|min:0',
+            'delivery_time' => 'nullable|string',
+            'quantity' => 'nullable|integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        session()->flash('edit');
-        return redirect()->route('sections.index');
+
+        DB::beginTransaction();
+        
+        
+        // Create a new product
+        try {
+            $product = Product::findOrfail($id);
+            if( $request->hasFile( 'photo' ) && $product->image ) {
+                Storage::disk('upload_image')->delete("products/" . $product->image->filename);
+                $product->image->delete();
+            }
+            $product->name = $request->name;
+            $product->section_id = $request->section_id;
+            $product->price = $request->price;
+            $product->discount = $request->discount;
+            $product->delivery_price = $request->delivery_price;
+            $product->delivery_time = $request->delivery_time;
+            $product->quantity = $request->quantity;
+            $product->specifications = $request->specifications;
+
+            $product->status = $request->status;; // Assuming product is active by default
+            $product->details = $request->details;
+
+            $product->save();
+
+            $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
+
+
+            DB::commit();
+            session()->flash('add');
+            return redirect()->route('products.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
-    public function destroy($request)
+    public function destroy($id)
     {
-        Section::findOrFail($request->id)->delete();
+        DB::beginTransaction();
+
+        try {
+            // Find the product model with the given ID
+            $product = Product::findOrFail($id);
+
+            // Delete the product image (if it exists)
+            if ($product->image) {
+                // Delete the image from storage
+                Storage::disk('upload_image')->delete("products/" . $product->image->filename);
+
+                // Delete the associated image model (optional)
+
+                $product->image->delete();
+            }
+
+            // Delete the product record
+            $product->delete();
+
+            DB::commit(); // Commit the transaction if everything went smoothly
+        } catch (\Exception $e) {
+            DB::rollback(); // Rollback if any errors occur
+            return back()->with('error', 'Failed to delete product. Please try again.');
+        }
         session()->flash('delete');
-        return redirect()->route('sections.index');
+        return redirect()->route('products.index');
     }
 }

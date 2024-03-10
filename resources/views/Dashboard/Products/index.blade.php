@@ -127,6 +127,8 @@
                                     <th class="wd-15p border-bottom-0">Number of Sales</th>
                                     <th class="wd-15p border-bottom-0">Quantity</th>
                                     <th class="wd-15p border-bottom-0">Specifications</th>
+                                    <th class="wd-15p border-bottom-0">Details</th>
+                                    <th class="wd-15p border-bottom-0">Attatchments</th>
                                     <th class="wd-15p border-bottom-0">Operations</th>
                                 </tr>
                             </thead>
@@ -157,7 +159,14 @@
                                         <td>{{ $item['number_of_ratings'] }}</td>
                                         <td>{{ $item['number_of_sales'] }}</td>
                                         <td>{{ $item['quantity'] }}</td>
-                                        <td>{{ $item['specifications'] }}</td>
+                                        <td>{{ \Str::limit($item['specifications'], 50, '...')  }}</td>
+                                        <td>{{ \Str::limit($item['details'], 50, '...')  }}</td>
+                                        @if ($item->image)
+                                        <td><img src="{{ URL::asset('Dashboard/img/products/' . $item->image->filename) }}" alt=""></td>
+                                        @else
+                                        <td>No attatchments</td>
+                                        @endif
+                                        
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                                 data-toggle="modal" href="#edit"><i class="las la-pen"></i></a>

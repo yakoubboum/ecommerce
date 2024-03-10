@@ -9,11 +9,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('sections.destroy', 'test') }}" method="post">
+            <form action="{{ route('products.destroy', $item->id ) }}" method="post">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
             <div class="modal-body">
-                <input type="hidden" name="id" value="{{ $item['id'] }}">
+                
                 <h5>Are you sure?</h5>
             </div>
             <div class="modal-footer">

@@ -56,6 +56,8 @@ Route::group(
 
             Route::resource('/sections',SectionController::class);
             Route::resource('/products',ProductController::class);
+            
+            
         });
 
         //###############----------###################""//

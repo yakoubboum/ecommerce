@@ -12,7 +12,7 @@ interface ProductRepositoryInterface
 
     public function store($r);
 
-    public function update($r);
+    public function update($request,$id);
 
     public function destroy($r);
 
