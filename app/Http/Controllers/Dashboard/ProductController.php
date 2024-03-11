@@ -22,6 +22,11 @@ class ProductController extends Controller
         return $this->Product->index();
     }
 
+
+    public function edit($id){
+        return $this->Product->edit($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

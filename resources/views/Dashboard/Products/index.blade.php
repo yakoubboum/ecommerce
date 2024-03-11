@@ -168,12 +168,12 @@
                                         @endif
                                         
                                         <td>
-                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-toggle="modal" href="#edit"><i class="las la-pen"></i></a>
+                                            <a class="modal-effect btn btn-sm btn-info" 
+                                                href="{{ route('products.edit',$item->id) }}"><i class="las la-pen"></i></a>
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-toggle="modal" href="#delete"><i class="las la-trash"></i></a>
+                                                data-toggle="modal" href="#" data-target="#delete{{$item->id}}"><i class="las la-trash"></i></a>
                                         </td>
-                                        @include('Dashboard.Products.edit')
+                                        
                                         @include('Dashboard.Products.delete')
                                     </tr>
                                 @empty

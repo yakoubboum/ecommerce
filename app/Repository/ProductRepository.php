@@ -29,8 +29,17 @@ class ProductRepository implements ProductRepositoryInterface
         return \view('Dashboard.Products.index', \compact('data', 'sections'));
     }
 
+    public function edit($id)
+    {
+        $item = Product::findOrfail($id);
+
+        $sections=Section::all();
+
+        return view('Dashboard.Products.edit',\compact('item','sections'));
+    }
     public function show($id)
     {
+        
     }
 
     public function store($request)

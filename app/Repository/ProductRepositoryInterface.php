@@ -10,6 +10,8 @@ interface ProductRepositoryInterface
 
     public function show($id);
 
+    public function edit($id);
+
     public function store($r);
 
     public function update($request,$id);
