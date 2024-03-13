@@ -21,10 +21,17 @@ class SectionRepository implements SectionRepositoryInterface
         return \view('Dashboard.Sections.index', \compact('Sections'));
     }
 
+    public function getproducts($id)
+    {
+        $data = Section::findOrfail($id)->products()->orderBy('created_at', 'desc')->get();
+
+        $sections=Section::all();
+        return \view('Dashboard.Products.index', \compact('data', 'sections'));
+
+    }
     public function show($id)
     {
     }
-
     public function store($r)
     {
 

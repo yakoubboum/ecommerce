@@ -44,4 +44,11 @@ class SectionController extends Controller
 
         return $product->image;
     }
+
+    public function getproducts($id)
+    {
+        return $this->Section->getproducts($id);
+    }
+
+
 }

@@ -55,6 +55,7 @@ Route::group(
             })->name('dashboard.admin');
 
             Route::resource('/sections',SectionController::class);
+            Route::get('/sectionproducts/{id}',[SectionController::class,'getproducts']);
             Route::resource('/products',ProductController::class);
             
             

@@ -16,4 +16,6 @@ interface SectionRepositoryInterface
 
     public function destroy($request);
 
+    public function getproducts($id);
+
 }

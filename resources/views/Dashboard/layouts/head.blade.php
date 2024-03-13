@@ -1,7 +1,8 @@
 <!-- Title -->
 <title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
 <!-- Favicon -->
-
+@yield('css')
+@livewireStyles
 @if (App::getLocale()=='ar')
 <link rel="icon" href="{{URL::asset('Dashboard/img/brand/favicon.png')}}" type="image/x-icon"/>
 <!-- Icons css -->
@@ -29,7 +30,7 @@
 <link href="{{URL::asset('Dashboard/plugins/sidebar/sidebar.css')}}" rel="stylesheet">
 <!-- Sidemenu css -->
 <link rel="stylesheet" href="{{URL::asset('Dashboard/css/sidemenu.css')}}">
-@yield('css')
+
 <!-- Maps css -->
 <link href="{{URL::asset('Dashboard/plugins/jqvmap/jqvmap.min.css')}}" rel="stylesheet">
 <!-- style css -->

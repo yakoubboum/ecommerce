@@ -128,7 +128,7 @@
                                 @foreach ($Sections as $Section)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $Section->name }}</td>
+                                        <td><a href="/dashboard/admin/sectionproducts/{{ $Section->id }}" target="_blank" rel="noopener noreferrer">{{ $Section->name }}</a></td>
                                         <td>{{ $Section->created_at->diffForHumans() }}</td>
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
