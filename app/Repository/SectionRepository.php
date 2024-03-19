@@ -42,6 +42,13 @@ class SectionRepository implements SectionRepositoryInterface
 
     public function update($request)
     {
+
+        // $request->validate([
+        //     'name' => 'required|unique:section_translations,name,' . $request->input('name') . ',' . (
+        //         $request->has('id') ? 'section_id,' . $request->input('id') : ''
+        //     ),
+        // ]);
+
         $section = Section::findOrFail($request->id);
         $section->update([
             'name' => $request->input('name'),

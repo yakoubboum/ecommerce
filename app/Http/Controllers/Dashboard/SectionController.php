@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Repository\SectionRepositoryInterface;
-
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\StoreSectionRequest;
+use App\Repository\SectionRepositoryInterface;
 
 class SectionController extends Controller
 {
@@ -28,7 +29,7 @@ class SectionController extends Controller
         return $this->Section->store($r);
     }
 
-    public function update(Request $request)
+    public function update(StoreSectionRequest $request)
     {
         return $this->Section->update($request);
     }
