@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Product;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
-use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -35,9 +36,32 @@ Route::group(
 
 
         //################ User dashboard ################//
-        Route::get('/dashboard/user', function () {
-            return view('Dashboard.User.dashboard');
-        })->middleware(['auth:web', 'verified'])->name('dashboard.user');
+        
+
+
+
+        Route::group(['middleware' => ['auth:web', 'verified'], 'prefix' => 'dashboard/user'],function () {
+
+            Route::get('/', function () {
+                $products=Product::where('status',1)->get();
+                return view('Dashboard.User.dashboard',compact('products'));
+            })->name('dashboard.user');
+
+
+            Route::get('/products', function () {
+                return view('Dashboard.product-cart');
+            });
+            
+
+            
+        });
+
+
+
+
+
+
+
 
 
 

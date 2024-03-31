@@ -1,9 +1,9 @@
-@extends('layouts.master')
+@extends('Dashboard.layouts.master')
 @section('css')
 <!--Internal  Nice-select css  -->
-<link href="{{URL::asset('assets/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet"/>
+<link href="{{URL::asset('Dashboard/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet"/>
 <!-- Internal Select2 css -->
-<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('Dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -50,18 +50,18 @@
 								<div class="row row-sm ">
 									<div class=" col-xl-5 col-lg-12 col-md-12">
 										<div class="preview-pic tab-content">
-										  <div class="tab-pane active" id="pic-1"><img src="{{URL::asset('assets/img/ecommerce/shirt-5.png')}}" alt="image"/></div>
-										  <div class="tab-pane" id="pic-2"><img src="{{URL::asset('assets/img/ecommerce/shirt-2.png')}}" alt="image"/></div>
-										  <div class="tab-pane" id="pic-3"><img src="{{URL::asset('assets/img/ecommerce/shirt-3.png')}}" alt="image"/></div>
-										  <div class="tab-pane" id="pic-4"><img src="{{URL::asset('assets/img/ecommerce/shirt-4.png')}}" alt="image"/></div>
-										  <div class="tab-pane" id="pic-5"><img src="{{URL::asset('assets/img/ecommerce/shirt-1.png')}}" alt="image"/></div>
+										  <div class="tab-pane active" id="pic-1"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-5.png')}}" alt="image"/></div>
+										  <div class="tab-pane" id="pic-2"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-2.png')}}" alt="image"/></div>
+										  <div class="tab-pane" id="pic-3"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-3.png')}}" alt="image"/></div>
+										  <div class="tab-pane" id="pic-4"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-4.png')}}" alt="image"/></div>
+										  <div class="tab-pane" id="pic-5"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-1.png')}}" alt="image"/></div>
 										</div>
 										<ul class="preview-thumbnail nav nav-tabs">
-										  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{URL::asset('assets/img/ecommerce/shirt-5.png')}}" alt="image"/></a></li>
-										  <li><a data-target="#pic-2" data-toggle="tab"><img src="{{URL::asset('assets/img/ecommerce/shirt-2.png')}}" alt="image"/></a></li>
-										  <li><a data-target="#pic-3" data-toggle="tab"><img src="{{URL::asset('assets/img/ecommerce/shirt-3.png')}}" alt="image"/></a></li>
-										  <li><a data-target="#pic-4" data-toggle="tab"><img src="{{URL::asset('assets/img/ecommerce/shirt-4.png')}}" alt="image"/></a></li>
-										  <li><a data-target="#pic-5" data-toggle="tab"><img src="{{URL::asset('assets/img/ecommerce/shirt-1.png')}}" alt="image"/></a></li>
+										  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-5.png')}}" alt="image"/></a></li>
+										  <li><a data-target="#pic-2" data-toggle="tab"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-2.png')}}" alt="image"/></a></li>
+										  <li><a data-target="#pic-3" data-toggle="tab"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-3.png')}}" alt="image"/></a></li>
+										  <li><a data-target="#pic-4" data-toggle="tab"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-4.png')}}" alt="image"/></a></li>
+										  <li><a data-target="#pic-5" data-toggle="tab"><img src="{{URL::asset('Dashboard/img/ecommerce/shirt-1.png')}}" alt="image"/></a></li>
 										</ul>
 									</div>
 									<div class="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
@@ -150,7 +150,7 @@
 						<div class="card item-card">
 							<div class="card-body pb-0 h-100">
 								<div class="text-center">
-									<img src="{{URL::asset('assets/img/ecommerce/01.jpg')}}" alt="img" class="img-fluid">
+									<img src="{{URL::asset('Dashboard/img/ecommerce/01.jpg')}}" alt="img" class="img-fluid">
 								</div>
 								<div class="card-body cardbody relative">
 									<div class="cardtitle">
@@ -173,7 +173,7 @@
 						<div class="card item-card">
 							<div class="card-body pb-0 h-100">
 								<div class="text-center">
-									<img src="{{URL::asset('assets/img/ecommerce/04.jpg')}}" alt="img" class="img-fluid">
+									<img src="{{URL::asset('Dashboard/img/ecommerce/04.jpg')}}" alt="img" class="img-fluid">
 								</div>
 								<div class="card-body cardbody relative">
 									<div class="cardtitle">
@@ -196,7 +196,7 @@
 						<div class="card item-card">
 							<div class="card-body pb-0 h-100">
 								<div class="text-center">
-									<img src="{{URL::asset('assets/img/ecommerce/07.jpg')}}" alt="img" class="img-fluid">
+									<img src="{{URL::asset('Dashboard/img/ecommerce/07.jpg')}}" alt="img" class="img-fluid">
 								</div>
 								<div class="card-body cardbody relative ">
 									<div class="cardtitle">
@@ -219,7 +219,7 @@
 						<div class="card item-card">
 							<div class="card-body pb-0 h-100">
 								<div class="text-center">
-									<img src="{{URL::asset('assets/img/ecommerce/08.jpg')}}" alt="img" class="img-fluid">
+									<img src="{{URL::asset('Dashboard/img/ecommerce/08.jpg')}}" alt="img" class="img-fluid">
 								</div>
 								<div class="card-body cardbody relative">
 									<div class="cardtitle">
@@ -286,9 +286,9 @@
 @endsection
 @section('js')
 <!-- Internal Select2.min js -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{URL::asset('Dashboard/js/select2.js')}}"></script>
 <!-- Internal Nice-select js-->
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
 @endsection

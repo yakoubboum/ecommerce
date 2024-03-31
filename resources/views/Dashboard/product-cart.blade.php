@@ -1,9 +1,9 @@
-@extends('layouts.master')
+@extends('Dashboard.layouts.master')
 @section('css')
 <!--Internal  Nice-select css  -->
-<link href="{{URL::asset('assets/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet"/>
+<link href="{{URL::asset('Dashboard/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet"/>
 <!-- Internal Select2 css -->
-<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('Dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -64,7 +64,7 @@
 												<td>
 													<div class="media">
 														<div class="card-aside-img">
-															<img src="{{URL::asset('assets/img/ecommerce/01.jpg')}}" alt="img" class="h-60 w-60">
+															<img src="{{URL::asset('Dashboard/img/ecommerce/01.jpg')}}" alt="img" class="h-60 w-60">
 														</div>
 														<div class="media-body">
 															<div class="card-item-desc mt-0">
@@ -99,7 +99,7 @@
 												<td>
 													<div class="media">
 														<div class="card-aside-img">
-															<img src="{{URL::asset('assets/img/ecommerce/06.jpg')}}" alt="img" class="h-60 w-60">
+															<img src="{{URL::asset('Dashboard/img/ecommerce/06.jpg')}}" alt="img" class="h-60 w-60">
 														</div>
 														<div class="media-body">
 															<div class="card-item-desc mt-0">
@@ -134,7 +134,7 @@
 												<td>
 													<div class="media">
 														<div class="card-aside-img">
-															<img src="{{URL::asset('assets/img/ecommerce/08.jpg')}}" alt="img" class="h-60 w-60">
+															<img src="{{URL::asset('Dashboard/img/ecommerce/08.jpg')}}" alt="img" class="h-60 w-60">
 														</div>
 														<div class="media-body">
 															<div class="card-item-desc mt-0">
@@ -169,7 +169,7 @@
 												<td>
 													<div class="media">
 														<div class="card-aside-img">
-															<img src="{{URL::asset('assets/img/ecommerce/02.jpg')}}" alt="img" class="h-60 w-60">
+															<img src="{{URL::asset('Dashboard/img/ecommerce/02.jpg')}}" alt="img" class="h-60 w-60">
 														</div>
 														<div class="media-body">
 															<div class="card-item-desc mt-0">
@@ -228,9 +228,9 @@
 @endsection
 @section('js')
 <!-- Internal Select2.min js -->
-<script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{URL::asset('Dashboard/js/select2.js')}}"></script>
 <!-- Internal Nice-select js-->
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
+<script src="{{URL::asset('Dashboard/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
 @endsection
