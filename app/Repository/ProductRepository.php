@@ -39,7 +39,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
     public function show($id)
     {
-        
+        $product=Product::findOrfail($id);
+        return \view('Dashboard.User.product-details',\compact('product'));
     }
 
     public function store($request)
@@ -166,4 +167,6 @@ class ProductRepository implements ProductRepositoryInterface
         session()->flash('delete');
         return redirect()->route('products.index');
     }
+
+   
 }

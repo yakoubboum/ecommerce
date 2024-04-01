@@ -48,9 +48,7 @@ Route::group(
             })->name('dashboard.user');
 
 
-            Route::get('/products', function () {
-                return view('Dashboard.product-cart');
-            });
+            Route::get('/product/{id}', [ProductController::class, 'show']);
             
 
             
