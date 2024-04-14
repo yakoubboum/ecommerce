@@ -133,8 +133,8 @@
                                 </div>
                             </div>
                             <div class="action">
-                                <button class="add-to-cart btn btn-danger" type="button">ADD TO WISHLIST</button>
-                                <button class="add-to-cart btn btn-success" type="button">ADD TO CART</button>
+                                
+                                <button class="add-to-cart btn btn-success" type="button">Buy Now</button>
                             </div>
                         </div>
                     </div>
