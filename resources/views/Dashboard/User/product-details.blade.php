@@ -56,9 +56,9 @@
                                 <div class="tab-pane active" id="pic-1"><img class="w-100"
                                         src="{{ URL::asset('Dashboard/img/products/' . ($product->image ? $product->image->filename : '01.jpg')) }}"
                                         alt="product-image" style="height: 300px;"></div>
-                                
+
                             </div>
-                            
+
                         </div>
                         <div class="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
                             <h4 class="product-title mb-1">{{ $product->name }}</h4>
@@ -133,9 +133,15 @@
                                 </div>
                             </div>
                             <div class="action">
-                                
-                                <button class="add-to-cart btn btn-success" type="button">Buy Now</button>
+                                <a href="/dashboard/user/payment/initiate/{{ $product->id }}"
+                                    class="add-to-cart btn btn-success">Buy With Paypal</a>
                             </div>
+                            <div class="action">
+                                <a href="/dashboard/user/stripe/{{ $product->price - ($product->discount * $product->price) / 100 }}"
+                                    class="add-to-cart btn btn-success"
+                                    style="background-color: aqua; color: white;     margin-top: 15px;">Buy With Credit Card</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "mcamara/laravel-localization": "^1.8",
-        "srmklive/paypal": "~1.0"
+        "srmklive/paypal": "~1.0",
+        "stripe/stripe-php": "^14.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",

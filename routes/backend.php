@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Dashboard\ProductController;
-use App\Http\Controllers\Dashboard\SectionController;
-use App\Http\Controllers\PaymentController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\SectionController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -52,9 +53,12 @@ Route::group(
 
             Route::get('/product/{id}', [ProductController::class, 'show']);
 
-            Route::get('/payment/initiate', [PaymentController::class, 'payment'])->name('payment');
-            Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+            Route::get('/payment/initiate/{id}', [PaymentController::class, 'payment'])->name('payment');
+            Route::get('/payment/success/{id}', [PaymentController::class, 'success'])->name('payment.success');
             Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+
+            Route::get('stripe/{price}', [StripePaymentController::class, 'stripe']);
+            Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
         });
 
 

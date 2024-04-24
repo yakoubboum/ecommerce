@@ -2,40 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Srmklive\PayPal\Services\ExpressCheckout;
 use Illuminate\Routing\Controller;
+use Srmklive\PayPal\Services\ExpressCheckout;
 
 class PaymentController extends Controller
 {
-    public function payment(Request $request)
+
+    public function payment($id)
     {
 
-        // $validator = $this->validate($request, [
-        //     'amount' => 'required|numeric|min:0.01', // Ensure a valid amount
-        //     'description' => 'required|string',
-        // ]);
+        $product = Product::findOrfail($id);
+        
         $data = [];
 
         $data['items'] = [
             [
-                'name' => 'gg',
-                'price' => '100',
+                'name' => $product->name,
+                'price' => $product->price - ($product->discount * $product->price) / 100,
                 'desc' => 'desc',
-                'qty' => 2,
+                'qty' => 1,
+                
             ],
-            [
-                'name' => 'gg2',
-                'price' => '100',
-                'desc' => 'desc',
-                'qty' => 2,
-            ]
+    
         ];
-
         $data['invoice_id'] = 1;
         $data['invoice_description'] = 'invoice_description';
-        $data['return_url'] = 'http://127.0.0.1:8000/en/dashboard/user/product/2';
-        $data['cancel_url'] = 'http://127.0.0.1:8000/en/dashboard/user/product/2';
+        $data['return_url'] = 'http://127.0.0.1:8000/en/dashboard/user/payment/success/'.$product->id;
+        $data['cancel_url'] = 'http://127.0.0.1:8000/en/dashboard/user/payment/cancel';
 
 
         $total = 0;
@@ -44,65 +40,29 @@ class PaymentController extends Controller
         }
 
         $data['total'] = $total;
-
-
-
-
-
-
-        // $data = [
-        //     'intent' => 'sale',
-        //     'invoice_id' => uniqid(), // Generate a unique invoice ID
-        //     'invoice_description' => 'invoice_description',
-        //     'total' => '50',
-        //     'currency' => config('paypal.currency'),
-        //     'return_url' => route('payment.success'), // Route for successful payment
-        //     'cancel_url' => route('payment.cancel'), // Route for cancellation
-        // ];
-
         $paypal = new ExpressCheckout();
-
-
         $response = $paypal->setExpressCheckout($data, true);
 
-        
         return \redirect($response['paypal_link']);
     }
 
-    public function success(Request $request)
+    public function success(Request $request,$id)
     {
         $provider = new ExpressCheckout();
         $response = $provider->getExpressCheckoutDetails($request->token);
 
-        if (\in_array(\strtoupper($response['ACK']), ['SUCCEES', 'SUCCEESWITHWARNING'])) {
+       
+        $product = Product::findOrfail($id);
+        if (strtoupper($response['ACK']) === 'SUCCESS') {
+            Order::create([
+                'user_id' => auth()->user()->id, // Assuming user is logged in
+                'product_id' => $product->id,
+                'quantity' => 1, // Modify if quantity can vary
+            ]);
             return response()->json('paid success');
         }
 
-        return response()->json('paid failed');
-
-
-
-
-
-
-
-
-
-
-        // $paypal = new ExpressCheckout(config('paypal.credentials')[config('paypal.mode')]);
-
-        // try {
-        //     $token = $request->get('token');
-        //     $payerId = $request->get('PayerID');
-
-        //     $payment = $paypal->getExpressCheckoutDetails($token);
-        //     $confirmation = $paypal->doExpressCheckoutPayment($payment['id'], $payerId, config('paypal.currency'), $payment['total']);
-
-        //     // Process successful payment (e.g., record order, send confirmation email)
-        //     return \back();
-        // } catch (\Exception $e) {
-        //     return back()->withErrors(['message' => 'Error processing payment: ' . $e->getMessage()]);
-        // }
+        return response()->json('paid failed ');
     }
 
     public function cancel()
