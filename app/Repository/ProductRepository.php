@@ -92,7 +92,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function update($request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:product_translations,name,'.$id.',id',
             'section_id' => 'required|integer|exists:sections,id',
             'price' => 'required|numeric|min:0.01',
             'discount' => 'nullable|integer|min:0|max:100',

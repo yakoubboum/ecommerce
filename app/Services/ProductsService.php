@@ -19,7 +19,7 @@ class ProductsService{
 
     public function createProduct($data){
         $product=Product::create($data);
-        $product->details()->create($data);
+        // $product->details()->create($data);
         //Event::dispatch(new newProductMail($product));
         return $product;
     }
@@ -38,13 +38,8 @@ class ProductsService{
 
     public function deleteProduct($id){
         $product=$this->getProduct($id);
-        if($product->details){
-            $product->details()->delete();
-        }
-        if($product->reviews){
-            $product->reviews()->delete();
-        }
-        if($product->imagable){
+        
+        if($product->image){
             $product->imagable()->delete();
         }
         $product->delete();

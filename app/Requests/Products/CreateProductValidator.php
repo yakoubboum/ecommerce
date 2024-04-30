@@ -7,11 +7,13 @@ class CreateProductValidator extends BaseRequestFormApi {
     public function rules(): array
     {
         return [
-            'title'=>'required|min:3|max:50',
-            'description'=>'required|min:3|max:1000',
-            'size'=>'required|numeric|min:30|max:100',
-            'color'=>'required|in:red,green',
-            'price'=>'nullable|numeric|min:1|max:10000',
+            'name' => 'required|string|max:255',
+            'section_id' => 'required|integer|exists:sections,id',
+            'price' => 'required|numeric|min:0.01',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'delivery_price' => 'nullable|numeric|min:0',
+            'delivery_time' => 'nullable|string',
+            'quantity' => 'nullable|integer|min:0',
         ];
     }
 

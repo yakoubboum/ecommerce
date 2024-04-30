@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\newsale;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 class PaymentController extends Controller
@@ -59,6 +61,8 @@ class PaymentController extends Controller
                 'product_id' => $product->id,
                 'quantity' => 1, // Modify if quantity can vary
             ]);
+
+            Mail::to('prox00521@gmail.com')->send(new newsale());
             return response()->json('paid success');
         }
 

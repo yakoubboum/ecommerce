@@ -1,58 +1,158 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 
-use App\Exports\ProductsExport;
-use App\Imports\ProductsImport;
-use App\Requests\Products\CreateProductValidator;
-use App\Requests\Products\ImportProductValidator;
-use App\Requests\Products\UpdateProductValidator;
-use App\Services\ProductsService;
-use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Product;
+use App\Traits\UploadTrait;
+
+use Illuminate\Http\Request;
+use App\Models\ProductTranslation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Api\BaseController;
+// use Illuminate\Support\Str;
 
 class ProductController extends BaseController
 {
-    public $productService;
+    use UploadTrait;
 
-    public function __construct(ProductsService $productService){
-        $this->productService=$productService;
+    public function index()
+    {
+        $data = Product::orderBy('created_at', 'desc')->get();
+
+        return \response()->json($data);
     }
-    public function index(){
-        return $this->productService->getProducts();
-    }
-    public function store(CreateProductValidator $createProductValidator){
-        if(!empty($createProductValidator->getErrors())){
-            return response()->json($createProductValidator->getErrors(),406);
+    public function store(Request $request)
+    {
+
+        // Validate form data (adjust as needed)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'section_id' => 'required|integer|exists:sections,id',
+            'price' => 'required|numeric|min:0.01',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'delivery_price' => 'nullable|numeric|min:0',
+            'delivery_time' => 'nullable|string',
+            'quantity' => 'nullable|integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        DB::beginTransaction();
+
+        // Create a new product
+        try {
+            $product = new Product;
+            $product->name = $request->name;
+            $product->section_id = $request->section_id;
+            $product->price = $request->price;
+            $product->discount = $request->discount;
+            $product->delivery_price = $request->delivery_price;
+            $product->delivery_time = $request->delivery_time;
+            $product->quantity = $request->quantity;
+            $product->specifications = $request->specifications;
+            // $product->photo = $photoPath; // Set photo path if uploaded
+            $product->status = $request->status;; // Assuming product is active by default
+            $product->details = $request->details;
+            // Save the product to database
+            $product->save();
+
+            $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
+
+
+            DB::commit();
+
+            return \response()->json($product);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return \response()->json($e);
         }
-        $data=$createProductValidator->request()->all();
-        $data['user_id']=Auth::user()->id;
-        $response=$this->productService->createProduct($data);
-        return $this->sendResponse($response);
-    }
-    public function update($id,UpdateProductValidator $updateProductValidator){
-        if(!empty($updateProductValidator->getErrors())){
-            return response()->json($updateProductValidator->getErrors(),406);
-        }
-        $data=$updateProductValidator->request()->all();
-        $data['user_id']=Auth::user()->id;
-        $response=$this->productService->updateProduct($id,$data);
-        return $this->sendResponse($response);
-    }
-    public function destroy($id){
-        $this->productService->deleteProduct($id);
-        return $this->sendResponse("deleted Successfully");
     }
 
-    public function export(){
-        return Excel::download(new ProductsExport(), 'export1.xlsx');
-    }
-    public function import(ImportProductValidator $importProductValidator){
-        if(!empty($importProductValidator->getErrors())){
-            return response()->json($importProductValidator->getErrors(),406);
+    public function update(Request $request, $id)
+    {
+        if (ProductTranslation::where('name', $request->name)->where('product_id', '!=', $id)->first() // Exclude current product ID
+        ) {
+
+        return \response()->json('The name has already been taken');
+
         }
-        Excel::import(new ProductsImport(), $importProductValidator->request()->file('file')->store('files'));
-        return $this->sendResponse("Saved");
+        $request->validate([
+
+            'name' => 'required|string|max:255',
+            'section_id' => 'required|integer|exists:sections,id',
+            'price' => 'required|numeric|min:0.01',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'delivery_price' => 'nullable|numeric|min:0',
+            'delivery_time' => 'nullable|string',
+            'quantity' => 'nullable|integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        DB::beginTransaction();
+
+
+        // Create a new product
+        try {
+            $product = Product::findOrfail($id);
+            if ($request->hasFile('photo') && $product->image) {
+                Storage::disk('upload_image')->delete("products/" . $product->image->filename);
+                $product->image->delete();
+            }
+            $product->name = $request->name;
+            $product->section_id = $request->section_id;
+            $product->price = $request->price;
+            $product->discount = $request->discount;
+            $product->delivery_price = $request->delivery_price;
+            $product->delivery_time = $request->delivery_time;
+            $product->quantity = $request->quantity;
+            $product->specifications = $request->specifications;
+
+            $product->status = $request->status;; // Assuming product is active by default
+            $product->details = $request->details;
+
+            $product->save();
+
+            $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
+
+
+            DB::commit();
+            session()->flash('add');
+            return \response()->json($product);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return \response()->json('error');
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            // Find the product model with the given ID
+            $product = Product::findOrFail($id);
+
+            // Delete the product image (if it exists)
+            if ($product->image) {
+                // Delete the image from storage
+                Storage::disk('upload_image')->delete("products/" . $product->image->filename);
+
+                // Delete the associated image model (optional)
+
+                $product->image->delete();
+            }
+
+            // Delete the product record
+            $product->delete();
+
+            DB::commit(); // Commit the transaction if everything went smoothly
+
+            return \response()->json($product);
+        } catch (\Exception $e) {
+            DB::rollback(); // Rollback if any errors occur
+            return \response()->json($product);;
+        }
     }
 }
