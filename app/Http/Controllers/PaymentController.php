@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\newProductMail;
 use App\Mail\newsale;
 use App\Models\Order;
 use App\Models\Product;
+use App\Mail\newsaleemail;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
+use App\Events\newsale as EventsNewsale;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 class PaymentController extends Controller
@@ -17,7 +23,7 @@ class PaymentController extends Controller
     {
 
         $product = Product::findOrfail($id);
-        
+
         $data = [];
 
         $data['items'] = [
@@ -26,13 +32,13 @@ class PaymentController extends Controller
                 'price' => $product->price - ($product->discount * $product->price) / 100,
                 'desc' => 'desc',
                 'qty' => 1,
-                
+
             ],
-    
+
         ];
         $data['invoice_id'] = 1;
         $data['invoice_description'] = 'invoice_description';
-        $data['return_url'] = 'http://127.0.0.1:8000/en/dashboard/user/payment/success/'.$product->id;
+        $data['return_url'] = 'http://127.0.0.1:8000/en/dashboard/user/payment/success/' . $product->id;
         $data['cancel_url'] = 'http://127.0.0.1:8000/en/dashboard/user/payment/cancel';
 
 
@@ -48,12 +54,12 @@ class PaymentController extends Controller
         return \redirect($response['paypal_link']);
     }
 
-    public function success(Request $request,$id)
+    public function success(Request $request, $id)
     {
         $provider = new ExpressCheckout();
         $response = $provider->getExpressCheckoutDetails($request->token);
 
-       
+
         $product = Product::findOrfail($id);
         if (strtoupper($response['ACK']) === 'SUCCESS') {
             Order::create([
@@ -62,7 +68,11 @@ class PaymentController extends Controller
                 'quantity' => 1, // Modify if quantity can vary
             ]);
 
-            Mail::to('prox00521@gmail.com')->send(new newsale());
+            // Mail::to('prox00521@gmail.com')->send(new newsaleemail);
+
+            Event::dispatch(new newProductMail());
+
+
             return response()->json('paid success');
         }
 
