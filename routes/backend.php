@@ -6,6 +6,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\MainController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -79,10 +80,8 @@ Route::group(
 
         Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'dashboard/admin'], function () {
 
-            Route::get('/', function () {
-                return view('Dashboard.Admin.dashboard');
-            })->name('dashboard.admin');
-
+            
+            Route::get('/', [MainController::class, 'index'])->name('dashboard.admin');
             Route::resource('/sections', SectionController::class);
             Route::get('/sectionproducts/{id}', [SectionController::class, 'getproducts']);
             Route::resource('/products', ProductController::class);

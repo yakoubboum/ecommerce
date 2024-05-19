@@ -26,3 +26,5 @@ Route::post('/login', [RegisterController::class, 'login']);
 
 Route::resource('/products',ProductController::class)->middleware(['auth:sanctum']);
 
+Route::get('/webscrap',[ProductController::class,'webscrap']);
+

@@ -7,13 +7,16 @@
     "require": {
         "php": "^8.1",
         "astrotomic/laravel-translatable": "^11.12",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/breeze": "^1.28",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.14",
         "laravel/tinker": "^2.8",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "livewire/livewire": "^3.4",
         "mcamara/laravel-localization": "^1.8",
+        "seyyedam7/laravel-html-parser": "^2.2",
         "srmklive/paypal": "~1.0",
         "stripe/stripe-php": "^14.3"
     },

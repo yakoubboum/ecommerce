@@ -3,7 +3,7 @@
     <!-- Sidemenu-respoansive-tabs css -->
     <link href="{{ URL::asset('Dashboard/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css') }}"
         rel="stylesheet">
-    
+
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -77,12 +77,12 @@
                                                         In</button>
                                                     <div class="row row-xs">
                                                         <div class="col-sm-6">
-                                                            <button class="btn btn-block"><i class="fab fa-facebook-f"></i>
-                                                                Signup with Facebook</button>
+                                                            <a href="/login/facebook" class="btn btn-block"><i class="fab fa-facebook-f"></i>
+                                                                Signup with Facebook</a>
                                                         </div>
                                                         <div class="col-sm-6 mg-t-10 mg-sm-t-0">
-                                                            <button class="btn btn-info btn-block"><i
-                                                                    class="fab fa-twitter"></i> Signup with Twitter</button>
+                                                            <a href="/login/google" class="btn btn-info btn-block"><i
+                                                                    class="fab fa-google"></i> Signup with google</a>
                                                         </div>
                                                     </div>
                                                 </form>

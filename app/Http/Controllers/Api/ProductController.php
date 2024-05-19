@@ -12,6 +12,9 @@ use App\Models\ProductTranslation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Api\BaseController;
+use GuzzleHttp\Client;
+use PHPHtmlParser\Dom;
+
 // use Illuminate\Support\Str;
 
 class ProductController extends BaseController
@@ -154,5 +157,36 @@ class ProductController extends BaseController
             DB::rollback(); // Rollback if any errors occur
             return \response()->json($product);;
         }
+    }
+
+
+
+    public function webscrap(){
+        // MuiBox-root mui-style-1q101cz
+
+        $client= new Client(['verify'=>false , 'cookies'=>true]);
+
+        $headers=[];
+
+        $options=[
+            'multipart'=>[
+
+            ],
+        ];
+
+        $url='https://www.dubizzle.com.eg/vehicles/cars-for-sale/?filter=price_between_8000_to_20000000';
+
+        $request=new \GuzzleHttp\Psr7\Request('GET',$url,$headers);
+
+        $res=$client->sendAsync($request,$options)->wait();
+
+        if($res->getStatusCode()==200){
+            $dom=new Dom();
+
+            $dom->loadStr($res->getBody()->getContents());
+
+            \dd($dom->find('_95eae7db')[0]);
+        }
+
     }
 }
