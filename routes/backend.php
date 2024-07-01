@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
@@ -54,6 +55,9 @@ Route::group(
 
             Route::get('/product/{id}', [ProductController::class, 'show']);
 
+            Route::get('/chat/{user_id}', [ChatController::class, 'chatForm']);
+            Route::post('/chat/{user_id}', [ChatController::class, 'sendMessage'])->name('chat.sendMessage');
+
             Route::get('/payment/initiate/{id}', [PaymentController::class, 'payment'])->name('payment');
             Route::get('/payment/success/{id}', [PaymentController::class, 'success'])->name('payment.success');
             Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
@@ -80,7 +84,7 @@ Route::group(
 
         Route::group(['middleware' => ['auth:admin', 'verified'], 'prefix' => 'dashboard/admin'], function () {
 
-            
+
             Route::get('/', [MainController::class, 'index'])->name('dashboard.admin');
             Route::resource('/sections', SectionController::class);
             Route::get('/sectionproducts/{id}', [SectionController::class, 'getproducts']);

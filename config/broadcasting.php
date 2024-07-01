@@ -66,6 +66,11 @@ return [
             'driver' => 'null',
         ],
 
+        'options' => [
+            'cluster' => 'eu',
+            'useTLS' => true
+          ],
+
     ],
 
 ];

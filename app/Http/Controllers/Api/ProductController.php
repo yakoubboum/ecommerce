@@ -25,12 +25,17 @@ class ProductController extends BaseController
     {
         $data = Product::orderBy('created_at', 'desc')->get();
 
-        return \response()->json($data);
+        return response()->json($data);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function store(Request $request)
     {
-
-        // Validate form data (adjust as needed)
         $request->validate([
             'name' => 'required|string|max:255',
             'section_id' => 'required|integer|exists:sections,id',
@@ -44,7 +49,6 @@ class ProductController extends BaseController
 
         DB::beginTransaction();
 
-        // Create a new product
         try {
             $product = new Product;
             $product->name = $request->name;
@@ -56,33 +60,30 @@ class ProductController extends BaseController
             $product->quantity = $request->quantity;
             $product->specifications = $request->specifications;
             // $product->photo = $photoPath; // Set photo path if uploaded
-            $product->status = $request->status;; // Assuming product is active by default
+            $product->status = $request->status ?? true; // Assuming product is active by default
             $product->details = $request->details;
-            // Save the product to database
             $product->save();
 
             $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
 
-
             DB::commit();
 
-            return \response()->json($product);
+            return response()->json($product);
         } catch (\Exception $e) {
             DB::rollback();
-            return \response()->json($e);
+            return response()->json($e, 500); // Set appropriate status code for error
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        if (ProductTranslation::where('name', $request->name)->where('product_id', '!=', $id)->first() // Exclude current product ID
-        ) {
-
-        return \response()->json('The name has already been taken');
-
+        if (ProductTranslation::where('name', $request->name)
+            ->where('product_id', '!=', $id)
+            ->first()) {
+            return response()->json('The name has already been taken');
         }
-        $request->validate([
 
+        $request->validate([
             'name' => 'required|string|max:255',
             'section_id' => 'required|integer|exists:sections,id',
             'price' => 'required|numeric|min:0.01',
@@ -95,14 +96,14 @@ class ProductController extends BaseController
 
         DB::beginTransaction();
 
-
-        // Create a new product
         try {
-            $product = Product::findOrfail($id);
+            $product = Product::findOrFail($id);
+
             if ($request->hasFile('photo') && $product->image) {
                 Storage::disk('upload_image')->delete("products/" . $product->image->filename);
                 $product->image->delete();
             }
+
             $product->name = $request->name;
             $product->section_id = $request->section_id;
             $product->price = $request->price;
@@ -111,51 +112,47 @@ class ProductController extends BaseController
             $product->delivery_time = $request->delivery_time;
             $product->quantity = $request->quantity;
             $product->specifications = $request->specifications;
-
-            $product->status = $request->status;; // Assuming product is active by default
+            $product->status = $request->status ?? true; // Assuming product is active by default
             $product->details = $request->details;
 
             $product->save();
 
             $this->verifyAndStoreImage($request, 'photo', 'products', 'upload_image', $product->id, 'App\Models\Product');
 
-
             DB::commit();
             session()->flash('add');
-            return \response()->json($product);
+            return response()->json($product);
         } catch (\Exception $e) {
             DB::rollback();
-            return \response()->json('error');
+            return response()->json('error', 500); // Set appropriate status code
         }
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function destroy(int $id)
     {
         DB::beginTransaction();
 
         try {
-            // Find the product model with the given ID
             $product = Product::findOrFail($id);
 
-            // Delete the product image (if it exists)
             if ($product->image) {
-                // Delete the image from storage
                 Storage::disk('upload_image')->delete("products/" . $product->image->filename);
-
-                // Delete the associated image model (optional)
-
-                $product->image->delete();
+                $product->image->delete(); // Optional, delete associated image model
             }
 
-            // Delete the product record
             $product->delete();
 
-            DB::commit(); // Commit the transaction if everything went smoothly
-
-            return \response()->json($product);
+            DB::commit();
+            return response()->json($product);
         } catch (\Exception $e) {
-            DB::rollback(); // Rollback if any errors occur
-            return \response()->json($product);;
+            DB::rollback();
+            return response()->json('error', 500); // Set appropriate status code
         }
     }
 

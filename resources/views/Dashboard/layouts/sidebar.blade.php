@@ -168,17 +168,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-3">
-										<span class="avatar avatar-lg brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/1.jpg')}}"></span>
-									</div>
-									<div>
-										<strong>Anthony</strong> New product Launching...
-										<div class="small text-muted">
-											5 hour ago
-										</div>
-									</div>
-								</div>
+
 								<div class="list-group-item d-flex  align-items-center">
 									<div class="ml-3">
 										<span class="avatar avatar-lg brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/2.jpg')}}"><span class="avatar-status bg-success"></span></span>
@@ -238,160 +228,22 @@
 						</div>
 						<div class="tab-pane  " id="side3">
 							<div class="list-group list-group-flush ">
-								<div class="list-group-item d-flex  align-items-center">
+
+                                @foreach (\App\Models\User::all() as $user )
+                                <div class="list-group-item d-flex  align-items-center">
 									<div class="ml-2">
 										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/9.jpg')}}"><span class="avatar-status bg-success"></span></span>
 									</div>
 									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
+										<div class="font-weight-semibold" >{{ $user->name }}</div>
 									</div>
 									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
+										<a href="/dashboard/user/chat/{{ $user->id }}" class="btn btn-sm btn-light"  ><i class="fab fa-facebook-messenger"></i></a>
 									</div>
 								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/11.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/10.jpg')}}"><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/2.jpg')}}"><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/13.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/12.jpg')}}"><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Mozelle Belt</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/4.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/7.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/2.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/14.jpg')}}"><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/11.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Florinda Carasco</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/9.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Alina Bernier</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/15.jpg')}}"><span class="avatar-status bg-success"></span></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Zula Mclaughin</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
-								<div class="list-group-item d-flex  align-items-center">
-									<div class="ml-2">
-										<span class="avatar avatar-md brround cover-image" data-image-src="{{URL::asset('Dashboard/img/faces/4.jpg')}}"></span>
-									</div>
-									<div class="">
-										<div class="font-weight-semibold" data-toggle="modal" data-target="#chatmodel">Isidro Heide</div>
-									</div>
-									<div class="mr-auto">
-										<a href="#" class="btn btn-sm btn-light" data-toggle="modal" data-target="#chatmodel" ><i class="fab fa-facebook-messenger"></i></a>
-									</div>
-								</div>
+                                @endforeach
+
+
 							</div>
 						</div>
 					</div>

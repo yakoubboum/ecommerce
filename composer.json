@@ -16,6 +16,7 @@
         "laraveldaily/laravel-charts": "^0.2.3",
         "livewire/livewire": "^3.4",
         "mcamara/laravel-localization": "^1.8",
+        "pusher/pusher-php-server": "^7.2",
         "seyyedam7/laravel-html-parser": "^2.2",
         "srmklive/paypal": "~1.0",
         "stripe/stripe-php": "^14.3"
