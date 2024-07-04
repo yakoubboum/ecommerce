@@ -17,19 +17,19 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('users')->insert([
-                'name' => Str::random(10),
-                'email' => Str::random(10) . '@example.com',
-                'password' => Hash::make('password'),
-            ]);
+        // for ($i = 0; $i < 10; $i++) {
+        //     DB::table('users')->insert([
+        //         'name' => Str::random(10),
+        //         'email' => Str::random(10) . '@example.com',
+        //         'password' => Hash::make('password'),
+        //     ]);
 
-            DB::table('admins')->insert([
-                'name' => Str::random(10),
-                'email' => Str::random(10) . '@example.com',
-                'password' => Hash::make('password'),
-            ]);
-        }
+        //     DB::table('admins')->insert([
+        //         'name' => Str::random(10),
+        //         'email' => Str::random(10) . '@example.com',
+        //         'password' => Hash::make('password'),
+        //     ]);
+        // }
 
         DB::table('users')->insert([
             'name' => 'ahmed',
@@ -43,6 +43,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456789'),
         ]);
 
-        
+
     }
 }

@@ -170,7 +170,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+
 
     ])->toArray(),
 
