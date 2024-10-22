@@ -172,6 +172,7 @@ return [
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
 
 
     ])->toArray(),

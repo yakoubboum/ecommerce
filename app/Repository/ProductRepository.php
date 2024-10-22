@@ -103,8 +103,8 @@ class ProductRepository implements ProductRepositoryInterface
         ]);
 
         DB::beginTransaction();
-        
-        
+
+
         // Create a new product
         try {
             $product = Product::findOrfail($id);
@@ -168,5 +168,5 @@ class ProductRepository implements ProductRepositoryInterface
         return redirect()->route('products.index');
     }
 
-   
+
 }

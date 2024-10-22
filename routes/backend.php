@@ -8,6 +8,7 @@ use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\RedisController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -97,3 +98,6 @@ Route::group(
         require __DIR__ . '/auth.php';
     }
 );
+
+
+Route::get('/Redis', [RedisController::class, 'index']);
